@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  register: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.register = this.fb.group({
+      usuario: ['',Validators.required],
+      password: ['',[Validators.required, Validators.maxLength(4)]],
+      confirmPassword: ['',[Validators.required, Validators.maxLength(4)]]
+    }, { validator: this.chekPassword });
+   }
+
+  
 
   ngOnInit(): void {
+  }
+
+  registrarUsuario(){
+    console.log(this.register);
+  }
+
+  chekPassword(group: FormGroup): any {
+    const pass = group.controls['password'].value;
+    const confirmPass = group.controls['confirmPassword'].value;
+    return pass === confirmPass ? null : {notSame: true};
   }
 
 }

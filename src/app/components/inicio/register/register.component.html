@@ -1,1 +1,36 @@
-<p>register works!</p>
+<div class="container">
+    <div class="row" style="width: 100%;">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card text-center" style="padding: 20px;">
+                <h3>Registrarse</h3>
+                <br>
+                <form [formGroup]="register" (ngSubmit)="registrarUsuario()">
+                    <div class="form-group" style="text-align: start;">
+                        <input type="text" class="form-control" placeholder="Usuario" formControlName="usuario">
+                        <span class="text-danger ml-2"
+                        *ngIf="register.get('usuario')?.invalid && this.register.get('usuario')?.touched"
+                        > El Usuario <strong>es requerido</strong></span>
+                    </div>
+                    <div class="form-group" style="text-align: start;">
+                        <input type="password" class="form-control" maxlength="4" minlength="4" placeholder="Contraseña" formControlName="password">
+                        <span class="text-danger ml-2"
+                        *ngIf="register.get('password')?.invalid 
+
+                        && this.register.get('password')?.touched"
+                        > La Contraseña <strong>es requerida</strong></span>
+                    </div>
+                    <div class="form-group" style="text-align: start;">
+                        <input type="password" class="form-control" maxlength="4" minlength="4" placeholder="Repetir Contraseña" formControlName="confirmPassword"> 
+                        <span class="text-danger ml-2"
+                        *ngIf="register.hasError('notSame') && this.register.get('password')?.touched"
+                        > La Contraseñas son <strong>distintas</strong></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary mr-2 btn-register" type="submit">Aceptar</button>
+                        <button class="btn btn-secondary" routerLink="/login">Volver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
