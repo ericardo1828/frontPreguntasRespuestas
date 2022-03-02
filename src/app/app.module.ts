@@ -6,6 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
+// Interoeptors
+import { AddtokenInterceptor } from '../app/helpers/addtoken.interceptor';
 
 
 //componentes
@@ -40,8 +44,9 @@ import { LoadingComponent } from './shared/loading/loading.component';
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AddtokenInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
